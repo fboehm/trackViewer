@@ -503,36 +503,3 @@ plotLollipops <- function(SNPs, feature.height, bottomHeight, baseline,
     popViewport()
 }
 
-plotLegend <- function(legend, this.height, LINEH){
-    ypos <- this.height
-    pch <- 21
-    if(length(legend)>0){
-        if(is.list(legend)){
-            thisLabels <- legend[["labels"]]
-            if("pch" %in% names(legend)) pch <- legend[["pch"]]
-            gp <- legend[!names(legend) %in% c("labels", "pch")]
-            if(is.null(gp$cex)) gp$cex <- 1
-            class(gp) <- "gpar"
-        }else{
-            thisLabels <- names(legend)
-            gp <- gpar(fill=legend, cex=1) 
-        }
-        if(length(thisLabels)>0){
-            ncol <- getColNum(thisLabels, cex=gp$cex)
-            topblank <- ceiling(length(thisLabels) / ncol) * gp$cex[1]
-            pushViewport(viewport(x=.5, 
-                                  y=ypos+(topblank+.2*gp$cex[1])*LINEH/2, 
-                                  width=1,
-                                  height=topblank*LINEH,
-                                  just="bottom"))
-            this.height <- ypos + (topblank+.2*gp$cex[1])*LINEH 
-            grid.legend(label=thisLabels, ncol=ncol,
-                        byrow=TRUE, vgap=unit(.1*gp$cex[1], "lines"), 
-                        hgap=unit(.5*gp$cex[1], "lines"),
-                        pch=pch,
-                        gp=gp)
-            popViewport()
-        }
-    }
-    this.height + LINEH
-}
