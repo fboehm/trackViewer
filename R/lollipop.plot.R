@@ -503,25 +503,6 @@ lolliplot <- function(SNP.gr, features=NULL, ranges=NULL,
                         side="top", jitter=jitter)
         }
         
-        ## legend
-        this.height <- getHeight(SNPs.top, 
-                                 ratio.yx, LINEW, GAP, cex, type,
-                                 scoreMax=scoreMax,
-                                 level="data&labels")
-        this.height0 <- this.height <- this.height + bottomHeight + feature.height
-        this.height <- plotLegend(legend[[i]], this.height, LINEH)
-        if('alpha' %in% names(legend[[i]])){
-          legend[[i]]$alpha <- NULL
-          if('pch' %in% names(legend[[i]])){
-            legend[[i]]$pch <- NA
-          }
-          plotLegend(legend[[i]], this.height0, LINEH)
-        }
-        
-        popViewport()
-        
-        this.height <- bottomblank + 
-          this.height * (1 - bottomblank)
         
         ## ylab
         if(length(yaxis)>1 && is.numeric(yaxis)){
